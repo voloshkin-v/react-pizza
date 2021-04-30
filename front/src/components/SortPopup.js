@@ -2,10 +2,12 @@ import React from 'react'
 
 import arrowTop from '../img/arrow-top.svg';
 
-function SortPopup() {
+function SortPopup({items}) {
     const [visiblePopup, setVisiblePopup] = React.useState(false);
+    const [activeItem, setActiveItem] = React.useState(1);
 
     const sortRef = React.useRef();
+    const activeName = items[activeItem];
 
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup);
@@ -16,6 +18,11 @@ function SortPopup() {
             setVisiblePopup(false);
         }
     };
+
+    const onSelectItem = index => {
+        setActiveItem(index);
+        setVisiblePopup(false);
+    }
 
     React.useEffect(() => {
         document.body.addEventListener('click', handleOutsideClick);
@@ -28,18 +35,20 @@ function SortPopup() {
             <div className="sort__label">
                 <img src={arrowTop} alt='arrowTop' />
                 <b>Сортировка по:</b>
-                <span onClick={toggleVisiblePopup}>популярности</span>
+                <span onClick={toggleVisiblePopup}>{activeName}</span>
             </div>
 
-            {visiblePopup && 
+            {visiblePopup && (
                 <div className="sort__popup">
                     <ul>
-                        <li className="active">популярности</li>
-                        <li>цене</li>
-                        <li>алфавиту</li>
+                        {items && items.map((item, index) => (
+                            <li onClick={() => onSelectItem(index)} className={activeItem === index ? 'active' : ''} key={`${item}_${index}`}>
+                                {item}
+                            </li>
+                        ))}
                     </ul>
                 </div>
-            }
+            )}
         </div>
     )
 }
