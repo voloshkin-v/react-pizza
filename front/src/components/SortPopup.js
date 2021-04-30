@@ -33,7 +33,7 @@ function SortPopup({items}) {
             ref={sortRef} 
             className="sort">
             <div className="sort__label">
-                <img src={arrowTop} alt='arrowTop' />
+                <img className={visiblePopup ? 'rotated' : ''} src={arrowTop} alt='arrowTop' />
                 <b>Сортировка по:</b>
                 <span onClick={toggleVisiblePopup}>{activeName}</span>
             </div>
