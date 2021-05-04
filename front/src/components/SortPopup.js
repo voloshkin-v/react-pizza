@@ -2,12 +2,12 @@ import React from 'react'
 
 import arrowTop from '../img/arrow-top.svg';
 
-function SortPopup({items}) {
+const SortPopup = React.memo(function SortPopup({items}) {
     const [visiblePopup, setVisiblePopup] = React.useState(false);
     const [activeItem, setActiveItem] = React.useState(1);
 
     const sortRef = React.useRef();
-    const activeName = items[activeItem];
+    const activeName = items[activeItem].name;
 
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup);
@@ -41,9 +41,9 @@ function SortPopup({items}) {
             {visiblePopup && (
                 <div className="sort__popup">
                     <ul>
-                        {items && items.map((item, index) => (
-                            <li onClick={() => onSelectItem(index)} className={activeItem === index ? 'active' : ''} key={`${item}_${index}`}>
-                                {item}
+                        {items && items.map((obj, index) => (
+                            <li onClick={() => onSelectItem(index)} className={activeItem === index ? 'active' : ''} key={`${obj.type}_${index}`}>
+                                {obj.name}
                             </li>
                         ))}
                     </ul>
@@ -51,6 +51,6 @@ function SortPopup({items}) {
             )}
         </div>
     )
-}
+});
 
-export default SortPopup
+export default SortPopup;
