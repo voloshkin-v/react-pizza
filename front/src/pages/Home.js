@@ -21,7 +21,8 @@ function Home() {
 		dispatch(setCategory(index));
 	}, []);
 
-    return (
+
+	return (
         <div className="container">
 			<div className="content__top">
 				<Categories
